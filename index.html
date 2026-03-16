@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Surf Breath Training</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --bg:#ffffff;
+  --bg2:#f7f7f5;
+  --bg3:#f1f1ef;
+  --border:#e9e9e7;
+  --border2:#d4d4d0;
+  --text:#37352f;
+  --text2:#787774;
+  --text3:#b5b3ad;
+  --accent:#2eaadc;
+  --accent-bg:#e8f4fb;
+  --green:#0f7b6c;
+  --green-bg:#eefaf7;
+  --red:#e03e3e;
+  --red-bg:#fbe4e4;
+  --orange:#d9730d;
+  --orange-bg:#faebdd;
+  --blue:#0b6e99;
+  --blue-bg:#ddebf1;
+  --sans:'Inter',sans-serif;
+  --radius:6px;
+}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:14px;line-height:1.6;min-height:100vh;}
+.page{max-width:680px;margin:0 auto;padding:3rem 2rem 6rem;}
+
+/* HEADER */
+.page-icon{font-size:40px;margin-bottom:.5rem;line-height:1;}
+.page-title{font-size:32px;font-weight:700;color:var(--text);margin-bottom:.25rem;letter-spacing:-.02em;}
+.page-sub{font-size:13px;color:var(--text2);margin-bottom:2rem;}
+.divider{height:1px;background:var(--border);margin:1.5rem 0;}
+
+/* NAV TABS — notion inline tab bar */
+.nav{display:flex;gap:2px;border-bottom:1px solid var(--border);margin-bottom:1.75rem;}
+.nav-btn{padding:8px 14px;font-family:var(--sans);font-size:13px;font-weight:500;border:none;background:none;color:var(--text2);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;transition:all .15s;}
+.nav-btn:hover{color:var(--text);background:var(--bg2);border-radius:var(--radius) var(--radius) 0 0;}
+.nav-btn.active{color:var(--text);border-bottom-color:var(--text);}
+.screen{display:none;}.screen.visible{display:block;}
+
+/* CALLOUT — notion style */
+.callout{display:flex;gap:10px;background:var(--bg2);border-radius:var(--radius);padding:.75rem 1rem;margin-bottom:1rem;font-size:13px;color:var(--text);}
+.callout-icon{font-size:16px;line-height:1.5;flex-shrink:0;}
+.callout.green{background:var(--green-bg);}
+.callout.red{background:var(--red-bg);}
+.callout.blue{background:var(--blue-bg);}
+.callout.orange{background:var(--orange-bg);}
+
+/* TOGGLE / SECTION HEADER */
+.section-label{font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--text2);margin-bottom:.6rem;margin-top:1.5rem;}
+
+/* PROTO PILLS — notion inline tag style */
+.proto-tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:1rem;}
+.proto-btn{padding:3px 10px;font-size:12px;font-weight:500;border-radius:3px;border:1px solid var(--border);background:var(--bg);color:var(--text2);cursor:pointer;transition:all .12s;}
+.proto-btn:hover{background:var(--bg2);}
+.proto-btn.active{background:var(--text);color:#fff;border-color:var(--text);}
+
+/* DESCRIPTION BLOCK */
+.desc-block{margin-bottom:1.25rem;}
+.desc-title{font-size:15px;font-weight:600;color:var(--text);margin-bottom:.3rem;}
+.desc-text{font-size:13px;color:var(--text2);line-height:1.65;}
+
+/* CIRCLE TIMER */
+.circle-wrap{display:flex;justify-content:center;margin:2rem 0 1.5rem;}
+.prog-wrap{position:relative;width:180px;height:180px;}
+.prog-wrap svg{position:absolute;inset:0;pointer-events:none;}
+.inner-circle{position:absolute;inset:10px;border-radius:50%;background:var(--bg);border:1px solid var(--border);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;}
+.phase-lbl{font-size:10px;font-weight:500;color:var(--text2);letter-spacing:.08em;text-transform:uppercase;}
+.count-big{font-size:44px;font-weight:600;color:var(--text);line-height:1;font-variant-numeric:tabular-nums;letter-spacing:-.03em;}
+.count-sub{font-size:11px;color:var(--text3);}
+
+/* BUTTONS */
+.ctrl-row{display:flex;gap:8px;justify-content:center;margin-bottom:1.5rem;}
+.ctrl-btn{padding:7px 20px;font-family:var(--sans);font-size:13px;font-weight:500;border-radius:var(--radius);border:1px solid var(--border2);background:var(--bg);color:var(--text);cursor:pointer;transition:all .15s;}
+.ctrl-btn:hover{background:var(--bg2);}
+.ctrl-btn.primary{background:var(--text);color:#fff;border-color:var(--text);}
+.ctrl-btn.primary:hover{opacity:.85;}
+
+/* MAX INPUT */
+.max-input-row{display:flex;align-items:center;gap:8px;margin-bottom:1rem;}
+.max-input-row label{font-size:13px;color:var(--text2);}
+.max-input-row input{width:68px;text-align:center;background:var(--bg);border:1px solid var(--border2);border-radius:var(--radius);color:var(--text);font-family:var(--sans);font-size:13px;padding:5px 8px;outline:none;}
+.max-input-row input:focus{border-color:var(--accent);}
+.max-input-row .ctrl-btn{padding:5px 12px;font-size:12px;}
+
+/* STATS */
+.stats-row{display:flex;gap:8px;margin-bottom:1.5rem;}
+.scard{flex:1;background:var(--bg2);border-radius:var(--radius);padding:.65rem .75rem;text-align:center;}
+.sval{font-size:20px;font-weight:600;color:var(--text);letter-spacing:-.02em;}
+.slbl{font-size:11px;color:var(--text2);margin-top:2px;}
+
+/* PROGRAM */
+.phase-selector{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:1.25rem;}
+.phase-btn{padding:4px 12px;font-size:12px;font-weight:500;border-radius:3px;border:1px solid var(--border);background:var(--bg);color:var(--text2);cursor:pointer;transition:all .12s;}
+.phase-btn:hover{background:var(--bg2);}
+.phase-btn.active{background:var(--text);color:#fff;border-color:var(--text);}
+.phase-content{display:none;}.phase-content.visible{display:block;}
+
+/* DATABASE TABLE style — notion */
+.db-table{width:100%;border-collapse:collapse;margin-bottom:1.5rem;font-size:13px;}
+.db-table th{text-align:left;font-size:11px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--text2);padding:6px 10px;border-bottom:1px solid var(--border);background:var(--bg);}
+.db-table td{padding:10px 10px;border-bottom:1px solid var(--border);vertical-align:top;color:var(--text);}
+.db-table tr:last-child td{border-bottom:none;}
+.db-table tr:hover td{background:var(--bg2);}
+.db-table .day-col{width:52px;font-weight:500;color:var(--text2);white-space:nowrap;}
+.db-table .name-col{font-weight:500;}
+.db-table .desc-col{color:var(--text2);font-size:12px;line-height:1.6;}
+
+/* TAGS / PROPERTIES */
+.tag{display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:500;padding:2px 8px;border-radius:3px;white-space:nowrap;}
+.tag-breath{background:var(--green-bg);color:var(--green);}
+.tag-cardio{background:var(--blue-bg);color:var(--blue);}
+.tag-dupla{background:var(--orange-bg);color:var(--orange);}
+.tag-rest{background:var(--bg2);color:var(--text2);}
+
+/* INLINE TEXT LABELS */
+.label-green{font-size:11px;font-weight:600;color:var(--green);text-transform:uppercase;letter-spacing:.05em;display:block;margin-bottom:2px;margin-top:6px;}
+.label-blue{font-size:11px;font-weight:600;color:var(--blue);text-transform:uppercase;letter-spacing:.05em;display:block;margin-bottom:2px;margin-top:6px;}
+
+/* GOALS */
+.property-list{margin-bottom:1.5rem;}
+.property-row{display:flex;align-items:baseline;gap:0;padding:6px 0;border-bottom:1px solid var(--border);font-size:13px;}
+.property-row:last-child{border-bottom:none;}
+.prop-key{min-width:200px;color:var(--text2);font-size:13px;}
+.prop-now{color:var(--text3);min-width:80px;}
+.prop-arrow{color:var(--text3);margin:0 8px;}
+.prop-target{color:var(--green);font-weight:500;}
+
+footer{font-size:11px;color:var(--text3);text-align:center;margin-top:3rem;}
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="page-icon">🌊</div>
+  <div class="page-title">Surf Breath Training</div>
+  <div class="page-sub">Programa de 8 semanas · Apneia + Cardio · 3 dias/semana</div>
+
+  <div class="nav">
+    <button class="nav-btn active" data-screen="timer">Cronômetro</button>
+    <button class="nav-btn" data-screen="program">Programa</button>
+    <button class="nav-btn" data-screen="goals">Metas</button>
+  </div>
+
+  <!-- ====== TIMER ====== -->
+  <div class="screen visible" id="screen-timer">
+
+    <div class="section-label">Protocolo</div>
+    <div class="proto-tabs" id="proto-tabs">
+      <button class="proto-btn active" data-pid="0">Teste máximo</button>
+      <button class="proto-btn" data-pid="1">CO2 table</button>
+      <button class="proto-btn" data-pid="2">O2 table</button>
+      <button class="proto-btn" data-pid="3">Recuperação</button>
+      <button class="proto-btn" data-pid="4">Wim Hof</button>
+    </div>
+
+    <div class="desc-block">
+      <div class="desc-title" id="proto-title">Teste de apneia máxima</div>
+      <div class="desc-text" id="proto-desc">Descobre seu máximo real em seco. Inspira fundo, clica em iniciar apneia e segura até não aguentar mais. Clica em liberar quando terminar. Esse tempo calibra todas as outras tabelas automaticamente.</div>
+    </div>
+
+    <div class="max-input-row" id="max-row" style="display:none;">
+      <label>Seu máximo (seg)</label>
+      <input type="number" id="max-input" value="90" min="10" max="400"/>
+      <button class="ctrl-btn" id="apply-max">Aplicar</button>
+    </div>
+
+    <div class="circle-wrap">
+      <div class="prog-wrap">
+        <svg viewBox="0 0 180 180" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="90" cy="90" r="84" fill="none" stroke="#e9e9e7" stroke-width="2.5"/>
+          <circle id="prog-ring" cx="90" cy="90" r="84" fill="none" stroke="#37352f" stroke-width="2.5"
+            stroke-dasharray="527.8" stroke-dashoffset="527.8"
+            transform="rotate(-90 90 90)" stroke-linecap="round"
+            style="transition:stroke-dashoffset .3s ease;"/>
+        </svg>
+        <div class="inner-circle">
+          <div class="phase-lbl" id="phase-lbl">pronto</div>
+          <div class="count-big" id="count-big">—</div>
+          <div class="count-sub" id="count-sub">série 0/0</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="ctrl-row" id="ctrl-row">
+      <button class="ctrl-btn primary" id="main-btn">Iniciar</button>
+    </div>
+
+    <div class="stats-row">
+      <div class="scard"><div class="sval" id="s-series">0</div><div class="slbl">Séries</div></div>
+      <div class="scard"><div class="sval" id="s-time">0:00</div><div class="slbl">Tempo total</div></div>
+      <div class="scard"><div class="sval" id="s-best">—</div><div class="slbl">Melhor apneia</div></div>
+    </div>
+
+    <div class="callout">
+      <div class="callout-icon">💡</div>
+      <div>Sempre em seco. Nunca pratique apneia sozinho na água — shallow water blackout ocorre sem aviso.</div>
+    </div>
+  </div>
+
+  <!-- ====== PROGRAM ====== -->
+  <div class="screen" id="screen-program">
+
+    <div class="callout blue">
+      <div class="callout-icon">ℹ️</div>
+      <div><strong>Estrutura:</strong> 3 dias/semana, cada sessão é dupla — breath primeiro, cardio depois. Nunca inverta a ordem.</div>
+    </div>
+
+    <div class="section-label">Fase</div>
+    <div class="phase-selector">
+      <button class="phase-btn active" data-phase="0">Fase 1 — Sem 1-2</button>
+      <button class="phase-btn" data-phase="1">Fase 2 — Sem 3-4</button>
+      <button class="phase-btn" data-phase="2">Fase 3 — Sem 5-6</button>
+      <button class="phase-btn" data-phase="3">Fase 4 — Sem 7-8</button>
+    </div>
+
+    <!-- FASE 1 -->
+    <div class="phase-content visible" id="phase-0">
+      <div class="callout green" style="margin-bottom:1rem;">
+        <div class="callout-icon">🎯</div>
+        <div><strong>Objetivo:</strong> Descobrir o máximo real. CO2 table em 70% desde o início — sem suavidade. Cardio: 8min correndo / 2min andando, 30min total.</div>
+      </div>
+      <table class="db-table">
+        <thead><tr><th>Dia</th><th>Sessão</th><th>Descrição</th></tr></thead>
+        <tbody>
+          <tr>
+            <td class="day-col">A</td>
+            <td class="name-col"><span class="tag tag-dupla">dupla</span><br>CO2 table + intervalado</td>
+            <td class="desc-col">
+              <span class="label-green">Breath — 25min</span>
+              Teste máximo: 3 séries apneia livre, anota o melhor. CO2 table: 6 séries com 70% do máximo, recuperação 2min entre cada.
+              <span class="label-blue">Cardio — 30min</span>
+              8min correndo / 2min andando. Repete até 30min. Ritmo em que consegue falar frases curtas.
+            </td>
+          </tr>
+          <tr>
+            <td class="day-col">B</td>
+            <td class="name-col"><span class="tag tag-dupla">dupla</span><br>O2 table + zona 2</td>
+            <td class="desc-col">
+              <span class="label-green">Breath — 25min</span>
+              O2 table: 6 séries, recuperação fixa 2min, apneia começa em 50% do máximo e sobe 10seg por série.
+              <span class="label-blue">Cardio — 30min</span>
+              Mesma estrutura: 8min correndo / 2min andando. Foco em ritmo constante, não velocidade.
+            </td>
+          </tr>
+          <tr>
+            <td class="day-col">C</td>
+            <td class="name-col"><span class="tag tag-dupla">dupla</span><br>Wim Hof + corrida contínua</td>
+            <td class="desc-col">
+              <span class="label-green">Breath — 20min</span>
+              3 rounds Wim Hof: 30 respirações profundas + apneia livre. Sentado, nunca em pé. 2min entre rounds.
+              <span class="label-blue">Cardio — 25min</span>
+              Tenta 10min contínuos. Se parar, anda 90seg e retoma. Objetivo: 10min sem parar até fim da sem. 2.
+            </td>
+          </tr>
+          <tr>
+            <td class="day-col">resto</td>
+            <td class="name-col"><span class="tag tag-rest">descanso</span></td>
+            <td class="desc-col">4 dias livres. Caminhada leve liberada. O treino acontece na recuperação.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- FASE 2 -->
+    <div class="phase-content" id="phase-1">
+      <div class="callout orange" style="margin-bottom:1rem;">
+        <div class="callout-icon">🔥</div>
+        <div><strong>Objetivo:</strong> CO2 table mais pesada toda semana — recuperação cai 15seg por série. Cardio evolui pra 12-15min contínuos. Aqui vai doer.</div>
+      </div>
+      <table class="db-table">
+        <thead><tr><th>Dia</th><th>Sessão</th><th>Descrição</th></tr></thead>
+        <tbody>
+          <tr>
+            <td class="day-col">A</td>
+            <td class="name-col"><span class="tag tag-dupla">dupla</span><br>CO2 pesada + intervalado intenso</td>
+            <td class="desc-col">
+              <span class="label-green">Breath — 30min</span>
+              CO2 table: 8 séries com 70% do máximo. Recuperação começa em 2min e cai 15seg a cada série (2:00, 1:45, 1:30...). A vontade de respirar no fim é o treino.
+              <span class="label-blue">Cardio — 35min</span>
+              5x(3min forte / 90seg andando). Forte = consegue falar só palavras soltas. Aquecimento 5min antes.
+            </td>
+          </tr>
+          <tr>
+            <td class="day-col">B</td>
+            <td class="name-col"><span class="tag tag-dupla">dupla</span><br>O2 table progressiva + zona 2</td>
+            <td class="desc-col">
+              <span class="label-green">Breath — 30min</span>
+              O2 table: 8 séries, recuperação fixa 90seg, apneia começa em 55% do máximo e sobe 15seg por série.
+              <span class="label-blue">Cardio — 35min</span>
+              12min correndo / 2min andando / 12min correndo. Diminui ritmo se precisar, mas não para.
+            </td>
+          </tr>
+          <tr>
+            <td class="day-col">C</td>
+            <td class="name-col"><span class="tag tag-dupla">dupla</span><br>CO2 + Wim Hof + corrida longa</td>
+            <td class="desc-col">
+              <span class="label-green">Breath — 30min</span>
+              4 séries CO2 table (70%, rec 90seg). 2 rounds Wim Hof. Teste parcial: 1 apneia livre no final pra medir evolução.
+              <span class="label-blue">Cardio — 35min</span>
+              15min contínuos → 2min andando → 10min contínuos. Objetivo: 20min sem parar até fim da sem. 4.
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- FASE 3 -->
+    <div class="phase-content" id="phase-2">
+      <div class="callout green" style="margin-bottom:1rem;">
+        <div class="callout-icon">📈</div>
+        <div><strong>Objetivo:</strong> O2 table vira foco principal. Apneia sobe 15seg por série. Cardio chega em 20-25min contínuos. Sua apneia máxima deve estar 40-60% acima do início.</div>
+      </div>
+      <table class="db-table">
+        <thead><tr><th>Dia</th><th>Sessão</th><th>Descrição</th></tr></thead>
+        <tbody>
+          <tr>
+            <td class="day-col">A</td>
+            <td class="name-col"><span class="tag tag-dupla">dupla</span><br>O2 table pesada + intervalado VO2</td>
+            <td class="desc-col">
+              <span class="label-green">Breath — 35min</span>
+              O2 table: 8 séries, recuperação fixa 90seg, apneia começa em 60% do máximo e sobe 15seg por série. Se travar numa série, mantém o tempo e segue.
+              <span class="label-blue">Cardio — 40min</span>
+              8x(2min no limite / 2min leve). Aquecimento 5min. Treino que mais eleva VO2 max — não economiza.
+            </td>
+          </tr>
+          <tr>
+            <td class="day-col">B</td>
+            <td class="name-col"><span class="tag tag-dupla">dupla</span><br>CO2 manutenção + zona 2 longo</td>
+            <td class="desc-col">
+              <span class="label-green">Breath — 25min</span>
+              CO2 table manutenção: 6 séries com 75% do máximo, recuperação 1:30 fixo. Mantém a tolerância enquanto o foco é O2.
+              <span class="label-blue">Cardio — 45min</span>
+              20min contínuos / 3min andando / 10min contínuos. Base longa sustenta o volume de apneia.
+            </td>
+          </tr>
+          <tr>
+            <td class="day-col">C</td>
+            <td class="name-col"><span class="tag tag-dupla">dupla</span><br>O2 + CO2 combinados + corrida</td>
+            <td class="desc-col">
+              <span class="label-green">Breath — 35min</span>
+              4 séries O2 (rec 90seg, 60% + 15seg). Descansa 3min. 4 séries CO2 (rec 1:15, 75%). Teste parcial no final.
+              <span class="label-blue">Cardio — 40min</span>
+              25min contínuos. Sem negociar. Encerra com 5min de caminhada.
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- FASE 4 -->
+    <div class="phase-content" id="phase-3">
+      <div class="callout" style="margin-bottom:1rem;background:#f3f0ff;">
+        <div class="callout-icon">🏆</div>
+        <div><strong>Objetivo:</strong> Tables combinadas por sessão. Cardio chega em 30min contínuos + intervalado pesado. Teste de máximo toda semana. Ao fim: vai pro mar.</div>
+      </div>
+      <table class="db-table">
+        <thead><tr><th>Dia</th><th>Sessão</th><th>Descrição</th></tr></thead>
+        <tbody>
+          <tr>
+            <td class="day-col">A</td>
+            <td class="name-col"><span class="tag tag-dupla">dupla</span><br>Tables combinadas + intervalado máximo</td>
+            <td class="desc-col">
+              <span class="label-green">Breath — 40min</span>
+              CO2: 8 séries 75%, rec começa em 1:30 e cai 10seg por série. Descansa 4min. O2: 4 séries 65% + 15seg cada, rec 90seg. Teste máximo no final — anota.
+              <span class="label-blue">Cardio — 40min</span>
+              10x(90seg máximo / 90seg leve). Aquecimento 5min. O mais intenso do programa.
+            </td>
+          </tr>
+          <tr>
+            <td class="day-col">B</td>
+            <td class="name-col"><span class="tag tag-dupla">dupla</span><br>O2 table máxima + corrida longa</td>
+            <td class="desc-col">
+              <span class="label-green">Breath — 35min</span>
+              O2 table: 8 séries, recuperação fixa 75seg, apneia começa em 65% e sobe 15seg por série. Últimas séries chegam perto do máximo.
+              <span class="label-blue">Cardio — 50min</span>
+              30min correndo contínuo. Sem parada. Ritmo pode cair, mas não para. Encerra com 10min leve.
+            </td>
+          </tr>
+          <tr>
+            <td class="day-col">C</td>
+            <td class="name-col"><span class="tag tag-dupla">dupla</span><br>Sessão final + teste definitivo</td>
+            <td class="desc-col">
+              <span class="label-green">Breath — 40min</span>
+              3 rounds Wim Hof + apneia máxima. 5min descanso. CO2: 6 séries 75%, rec 1min fixo. Teste final: 3 tentativas, anota o melhor. Compara com semana 1.
+              <span class="label-blue">Cardio — 40min</span>
+              30min correndo. Ritmo livre. Você terminou o programa.
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="callout red">
+        <div class="callout-icon">⚠️</div>
+        <div><strong>Segurança permanente:</strong> Todo treino de apneia em seco. Nunca pratique apneia sozinho na água. Shallow water blackout ocorre sem aviso prévio.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ====== GOALS ====== -->
+  <div class="screen" id="screen-goals">
+
+    <div class="section-label">Metas do programa — 8 semanas</div>
+    <div class="property-list">
+      <div class="property-row">
+        <span class="prop-key">Apneia máxima</span>
+        <span class="prop-now">1–2 min</span>
+        <span class="prop-arrow">→</span>
+        <span class="prop-target">3–4 min</span>
+      </div>
+      <div class="property-row">
+        <span class="prop-key">Corrida contínua</span>
+        <span class="prop-now">8 min</span>
+        <span class="prop-arrow">→</span>
+        <span class="prop-target">30 min</span>
+      </div>
+      <div class="property-row">
+        <span class="prop-key">Recuperação entre ondas</span>
+        <span class="prop-now">lenta</span>
+        <span class="prop-arrow">→</span>
+        <span class="prop-target">50% mais rápida</span>
+      </div>
+      <div class="property-row">
+        <span class="prop-key">Tolerância CO2 (pânico)</span>
+        <span class="prop-now">presente</span>
+        <span class="prop-arrow">→</span>
+        <span class="prop-target">controlado</span>
+      </div>
+      <div class="property-row">
+        <span class="prop-key">VO2 max estimado</span>
+        <span class="prop-now">base</span>
+        <span class="prop-arrow">→</span>
+        <span class="prop-target">+20%</span>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+    <div class="section-label">Como medir a evolução</div>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;margin-bottom:1rem;">
+      Toda semana no Dia C, antes de começar: faz 1 apneia máxima livre no cronômetro. Anota o tempo. A curva de evolução aparece nas semanas 3-4 quando o CO2 tolerance começa a ceder.<br><br>
+      Na corrida: cronometra quanto tempo corre sem parar no início do Dia B. Esse número vai subir toda semana a partir da semana 3.<br><br>
+      No mar: o sinal mais claro é a calma. Hold-down que antes dava pânico vira algo gerenciável.
+    </p>
+
+    <div class="divider"></div>
+    <div class="section-label">Por que breath antes do cardio</div>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;margin-bottom:1rem;">
+      O treino de apneia exige sistema nervoso fresco e CO2 basal baixo. Se você correr antes, o CO2 já está elevado e a table trava cedo por razão errada. Breath primeiro, sempre.
+    </p>
+
+    <div class="divider"></div>
+    <div class="section-label">Sinais de overtraining</div>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;margin-bottom:1.5rem;">
+      Apneia máxima caindo em vez de subindo, tontura fora dos treinos, irritabilidade, sono ruim. Se aparecer 2 ou mais juntos: reduz o volume pela metade por uma semana antes de retomar.
+    </p>
+
+    <div class="callout red">
+      <div class="callout-icon">⚠️</div>
+      <div><strong>Regra permanente:</strong> Apneia sempre em seco ou com parceiro na água. Shallow water blackout não avisa. Nunca negocia essa regra.</div>
+    </div>
+  </div>
+
+  <footer>Surf Breath Training · 8 semanas · use com responsabilidade</footer>
+</div>
+
+<script>
+const CIRC=2*Math.PI*84;
+let maxHold=90,activePid=0,running=false,freeMode=false;
+let timer=null,clockTimer=null,startTime=null;
+let seriesCount=0,bestHold=0,freeStart=null,freeTimer=null,builtPhases=null;
+
+const PROTOCOLS=[
+  {title:"Teste de apneia máxima",desc:"Descobre seu máximo real em seco. Inspira fundo, clica em iniciar apneia e segura até não aguentar mais. Clica em liberar quando terminar. Esse tempo calibra todas as outras tabelas automaticamente.",free:true,series:3},
+  {title:"CO2 table",desc:"Apneia em 70% do seu máximo, recuperação diminuindo a cada série. Principal treino pra tolerar CO2 alto — o que dispara o pânico no hold-down. Insira seu máximo e aplique antes de iniciar.",free:false,series:8,
+    buildPhases:(mx)=>{let p=[];for(let i=0;i<8;i++){const rec=Math.max(45,120-i*15);p.push({label:'inspira fundo',duration:5},{label:'apneia CO2',duration:Math.round(mx*0.70),isHold:true},{label:'recupera '+rec+'s',duration:rec});}return p;}},
+  {title:"O2 table",desc:"Recuperação fixa, apneia aumentando 15seg por série. Treina o teto de O2. Insira seu máximo e aplique antes de iniciar.",free:false,series:8,
+    buildPhases:(mx)=>{let p=[];for(let i=0;i<8;i++){p.push({label:'inspira fundo',duration:5},{label:'apneia O2',duration:Math.round(mx*0.50)+i*15,isHold:true},{label:'recupera 90s',duration:90});}return p;}},
+  {title:"Recuperação entre ondas",desc:"Expiração longa ativa o parassimpático. Baixa o batimento rápido entre séries. 8 rounds.",free:false,series:8,
+    phases:[{label:'inspira',duration:4},{label:'segura',duration:2},{label:'expira longo',duration:8},{label:'pausa',duration:2}]},
+  {title:"Wim Hof leve",desc:"30 respirações profundas seguidas de apneia livre. 3 rounds. Sempre sentado, nunca perto de água ou em pé.",free:true,series:3}
+];
+
+const ring=document.getElementById('prog-ring');
+const phaseLbl=document.getElementById('phase-lbl');
+const countBig=document.getElementById('count-big');
+const countSub=document.getElementById('count-sub');
+const ctrlRow=document.getElementById('ctrl-row');
+const maxRow=document.getElementById('max-row');
+const maxInput=document.getElementById('max-input');
+const sSeries=document.getElementById('s-series');
+const sTime=document.getElementById('s-time');
+const sBest=document.getElementById('s-best');
+const protoTitle=document.getElementById('proto-title');
+const protoDesc=document.getElementById('proto-desc');
+
+function setRing(p){ring.setAttribute('stroke-dashoffset',(CIRC*(1-Math.min(1,p))).toFixed(1));}
+function fmtTime(s){return Math.floor(s/60)+':'+String(s%60).padStart(2,'0');}
+function stopAll(){running=false;freeMode=false;clearTimeout(timer);clearInterval(clockTimer);clearInterval(freeTimer);setRing(0);}
+function updateClock(){if(startTime)sTime.textContent=fmtTime(Math.floor((Date.now()-startTime)/1000));}
+
+function rebuildCtrl(isFree){
+  let h='';
+  if(isFree){
+    if(!running)h='<button class="ctrl-btn primary" id="main-btn">Iniciar</button>';
+    else if(!freeMode)h='<button class="ctrl-btn primary" id="main-btn">Iniciar apneia</button><button class="ctrl-btn" id="stop-btn">Parar</button>';
+    else h='<button class="ctrl-btn primary" id="main-btn">Liberar</button><button class="ctrl-btn" id="stop-btn">Parar</button>';
+  }else{
+    if(!running)h='<button class="ctrl-btn primary" id="main-btn">Iniciar</button>';
+    else h='<button class="ctrl-btn" id="stop-btn2">Parar</button>';
+  }
+  ctrlRow.innerHTML=h;
+  const mb=document.getElementById('main-btn');
+  const sb=document.getElementById('stop-btn');
+  const sb2=document.getElementById('stop-btn2');
+  const proto=PROTOCOLS[activePid];
+  if(mb)mb.addEventListener('click',handleMain);
+  if(sb)sb.addEventListener('click',()=>{stopAll();rebuildCtrl(proto.free);phaseLbl.textContent='pronto';countBig.textContent='—';countSub.textContent='série 0/'+proto.series;});
+  if(sb2)sb2.addEventListener('click',()=>{stopAll();rebuildCtrl(false);phaseLbl.textContent='pronto';countBig.textContent='—';});
+}
+
+function startFreeApneia(){
+  freeMode=true;freeStart=Date.now();
+  phaseLbl.textContent='apneia livre';countBig.textContent='0';setRing(0);
+  freeTimer=setInterval(()=>{
+    const e=Math.floor((Date.now()-freeStart)/1000);
+    countBig.textContent=e;setRing((e%90)/90);
+  },250);
+  rebuildCtrl(true);
+}
+
+function endFreeApneia(){
+  clearInterval(freeTimer);
+  const e=Math.floor((Date.now()-freeStart)/1000);
+  freeMode=false;
+  if(e>bestHold){bestHold=e;sBest.textContent=e+'s';maxInput.value=e;}
+  seriesCount++;sSeries.textContent=seriesCount;
+  phaseLbl.textContent='recupera';
+  countBig.textContent='✓ '+e+'s';
+  countSub.textContent='série '+seriesCount+'/'+PROTOCOLS[activePid].series;
+  setRing(0);
+  if(seriesCount>=PROTOCOLS[activePid].series){phaseLbl.textContent='concluído';running=false;rebuildCtrl(true);clearInterval(clockTimer);return;}
+  rebuildCtrl(true);
+}
+
+function runStructured(pi,si,second){
+  if(!running)return;
+  const proto=PROTOCOLS[activePid];
+  const phases=builtPhases||proto.phases;
+  const pps=Math.floor(phases.length/proto.series);
+  const gpi=si*pps+pi;
+  if(si>=proto.series||gpi>=phases.length){
+    phaseLbl.textContent='concluído';countBig.textContent='✓';setRing(1);
+    running=false;rebuildCtrl(false);clearInterval(clockTimer);return;
+  }
+  const phase=phases[gpi];const dur=phase.duration;
+  if(second===0){
+    phaseLbl.textContent=phase.label;
+    if(pi===0){countSub.textContent='série '+(si+1)+'/'+proto.series;sSeries.textContent=si+1;}
+    if(phase.isHold)freeStart=Date.now();
+  }
+  countBig.textContent=dur-second;setRing(second/dur);
+  if(phase.isHold&&second===dur-1){const held=Math.round((Date.now()-freeStart)/1000);if(held>bestHold){bestHold=held;sBest.textContent=held+'s';}}
+  if(second<dur-1){timer=setTimeout(()=>runStructured(pi,si,second+1),1000);}
+  else{const np=pi+1;if(np<pps)timer=setTimeout(()=>runStructured(np,si,0),1000);else timer=setTimeout(()=>runStructured(0,si+1,0),1000);}
+}
+
+function handleMain(){
+  const proto=PROTOCOLS[activePid];
+  if(proto.free){
+    if(!running){running=true;seriesCount=0;bestHold=0;sBest.textContent='—';sSeries.textContent='0';startTime=Date.now();clockTimer=setInterval(updateClock,1000);phaseLbl.textContent='pronto';countBig.textContent='—';countSub.textContent='série 0/'+proto.series;rebuildCtrl(true);}
+    else if(!freeMode)startFreeApneia();
+    else endFreeApneia();
+  }else{
+    if(running){stopAll();rebuildCtrl(false);return;}
+    running=true;seriesCount=0;bestHold=0;sBest.textContent='—';sSeries.textContent='0';startTime=Date.now();clockTimer=setInterval(updateClock,1000);
+    builtPhases=proto.buildPhases?proto.buildPhases(maxHold):null;
+    rebuildCtrl(false);runStructured(0,0,0);
+  }
+}
+
+document.querySelectorAll('.proto-btn').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    if(running)stopAll();
+    document.querySelectorAll('.proto-btn').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    activePid=parseInt(btn.dataset.pid);
+    const proto=PROTOCOLS[activePid];
+    protoTitle.textContent=proto.title;protoDesc.textContent=proto.desc;
+    phaseLbl.textContent='pronto';countBig.textContent='—';
+    countSub.textContent='série 0/'+proto.series;
+    sSeries.textContent='0';sTime.textContent='0:00';sBest.textContent='—';
+    bestHold=0;setRing(0);
+    maxRow.style.display=proto.buildPhases?'flex':'none';
+    rebuildCtrl(proto.free);
+  });
+});
+
+document.getElementById('apply-max').addEventListener('click',()=>{
+  maxHold=Math.max(10,parseInt(maxInput.value)||90);maxInput.value=maxHold;
+});
+
+document.querySelectorAll('.nav-btn').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    document.querySelectorAll('.screen').forEach(s=>s.classList.remove('visible'));
+    document.getElementById('screen-'+btn.dataset.screen).classList.add('visible');
+  });
+});
+
+document.querySelectorAll('.phase-btn').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    document.querySelectorAll('.phase-btn').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    document.querySelectorAll('.phase-content').forEach(p=>p.classList.remove('visible'));
+    document.getElementById('phase-'+btn.dataset.phase).classList.add('visible');
+  });
+});
+
+rebuildCtrl(true);
+</script>
+</body>
+</html>
