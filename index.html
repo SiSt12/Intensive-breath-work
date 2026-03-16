@@ -5,64 +5,67 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Surf Breath Training</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet"/>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cellipse cx='16' cy='16' rx='5' ry='13' fill='%2337352f' transform='rotate(-30 16 16)'/%3E%3Cellipse cx='16' cy='16' rx='2' ry='5' fill='%23ffffff' transform='rotate(-30 16 16)'/%3E%3Cpath d='M11 23 L8 27' stroke='%2337352f' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E"/>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 :root{
-  --bg:#ffffff;
-  --bg2:#f7f7f5;
-  --bg3:#f1f1ef;
-  --border:#e9e9e7;
-  --border2:#d4d4d0;
-  --text:#37352f;
-  --text2:#787774;
-  --text3:#b5b3ad;
-  --accent:#2eaadc;
-  --accent-bg:#e8f4fb;
-  --green:#0f7b6c;
-  --green-bg:#eefaf7;
-  --red:#e03e3e;
-  --red-bg:#fbe4e4;
-  --orange:#d9730d;
-  --orange-bg:#faebdd;
-  --blue:#0b6e99;
-  --blue-bg:#ddebf1;
-  --sans:'Inter',sans-serif;
-  --radius:6px;
+  --bg:#ffffff;--bg2:#f7f7f5;--bg3:#f1f1ef;
+  --border:#e9e9e7;--border2:#d4d4d0;
+  --text:#37352f;--text2:#787774;--text3:#b5b3ad;
+  --green:#0f7b6c;--green-bg:#eefaf7;
+  --red:#e03e3e;--red-bg:#fbe4e4;
+  --orange:#d9730d;--orange-bg:#faebdd;
+  --blue:#0b6e99;--blue-bg:#ddebf1;
+  --purple:#6940a5;--purple-bg:#f4f0ff;
+  --yellow:#dfab01;--yellow-bg:#fbf3db;
+  --sans:'Inter',sans-serif;--radius:6px;
 }
 body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:14px;line-height:1.6;min-height:100vh;}
-.page{max-width:680px;margin:0 auto;padding:3rem 2rem 6rem;}
-
-/* HEADER */
+.page{max-width:700px;margin:0 auto;padding:3rem 2rem 6rem;}
 .page-icon{font-size:40px;margin-bottom:.5rem;line-height:1;}
 .page-title{font-size:32px;font-weight:700;color:var(--text);margin-bottom:.25rem;letter-spacing:-.02em;}
 .page-sub{font-size:13px;color:var(--text2);margin-bottom:2rem;}
 .divider{height:1px;background:var(--border);margin:1.5rem 0;}
 
-/* NAV TABS — notion inline tab bar */
+/* NAV */
 .nav{display:flex;gap:2px;border-bottom:1px solid var(--border);margin-bottom:1.75rem;}
 .nav-btn{padding:8px 14px;font-family:var(--sans);font-size:13px;font-weight:500;border:none;background:none;color:var(--text2);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;transition:all .15s;}
 .nav-btn:hover{color:var(--text);background:var(--bg2);border-radius:var(--radius) var(--radius) 0 0;}
 .nav-btn.active{color:var(--text);border-bottom-color:var(--text);}
 .screen{display:none;}.screen.visible{display:block;}
 
-/* CALLOUT — notion style */
+/* INTENSITY SELECTOR */
+.intensity-wrap{margin-bottom:1.5rem;}
+.intensity-label{font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--text2);margin-bottom:.6rem;display:block;}
+.intensity-btns{display:flex;gap:6px;flex-wrap:wrap;}
+.int-btn{padding:5px 14px;font-size:12px;font-weight:500;border-radius:3px;border:1px solid var(--border);background:var(--bg);color:var(--text2);cursor:pointer;transition:all .12s;display:flex;align-items:center;gap:5px;}
+.int-btn:hover{background:var(--bg2);}
+.int-btn.active[data-int="easy"]{background:var(--green-bg);color:var(--green);border-color:var(--green);}
+.int-btn.active[data-int="medium"]{background:var(--yellow-bg);color:var(--yellow);border-color:var(--yellow);}
+.int-btn.active[data-int="hard"]{background:var(--orange-bg);color:var(--orange);border-color:var(--orange);}
+.int-btn.active[data-int="legend"]{background:var(--purple-bg);color:var(--purple);border-color:var(--purple);}
+.int-desc{font-size:12px;color:var(--text2);margin-top:.5rem;padding:.5rem .75rem;background:var(--bg2);border-radius:var(--radius);}
+
+/* CALLOUT */
 .callout{display:flex;gap:10px;background:var(--bg2);border-radius:var(--radius);padding:.75rem 1rem;margin-bottom:1rem;font-size:13px;color:var(--text);}
 .callout-icon{font-size:16px;line-height:1.5;flex-shrink:0;}
 .callout.green{background:var(--green-bg);}
 .callout.red{background:var(--red-bg);}
 .callout.blue{background:var(--blue-bg);}
 .callout.orange{background:var(--orange-bg);}
+.callout.purple{background:var(--purple-bg);}
+.callout.yellow{background:var(--yellow-bg);}
 
-/* TOGGLE / SECTION HEADER */
+/* SECTION LABEL */
 .section-label{font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--text2);margin-bottom:.6rem;margin-top:1.5rem;}
 
-/* PROTO PILLS — notion inline tag style */
+/* PROTO PILLS */
 .proto-tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:1rem;}
 .proto-btn{padding:3px 10px;font-size:12px;font-weight:500;border-radius:3px;border:1px solid var(--border);background:var(--bg);color:var(--text2);cursor:pointer;transition:all .12s;}
 .proto-btn:hover{background:var(--bg2);}
 .proto-btn.active{background:var(--text);color:#fff;border-color:var(--text);}
 
-/* DESCRIPTION BLOCK */
+/* DESC BLOCK */
 .desc-block{margin-bottom:1.25rem;}
 .desc-title{font-size:15px;font-weight:600;color:var(--text);margin-bottom:.3rem;}
 .desc-text{font-size:13px;color:var(--text2);line-height:1.65;}
@@ -87,7 +90,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:14
 .max-input-row{display:flex;align-items:center;gap:8px;margin-bottom:1rem;}
 .max-input-row label{font-size:13px;color:var(--text2);}
 .max-input-row input{width:68px;text-align:center;background:var(--bg);border:1px solid var(--border2);border-radius:var(--radius);color:var(--text);font-family:var(--sans);font-size:13px;padding:5px 8px;outline:none;}
-.max-input-row input:focus{border-color:var(--accent);}
+.max-input-row input:focus{border-color:#2eaadc;}
 .max-input-row .ctrl-btn{padding:5px 12px;font-size:12px;}
 
 /* STATS */
@@ -103,35 +106,49 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:14
 .phase-btn.active{background:var(--text);color:#fff;border-color:var(--text);}
 .phase-content{display:none;}.phase-content.visible{display:block;}
 
-/* DATABASE TABLE style — notion */
+/* TABLE */
 .db-table{width:100%;border-collapse:collapse;margin-bottom:1.5rem;font-size:13px;}
-.db-table th{text-align:left;font-size:11px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--text2);padding:6px 10px;border-bottom:1px solid var(--border);background:var(--bg);}
+.db-table th{text-align:left;font-size:11px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--text2);padding:6px 10px;border-bottom:1px solid var(--border);}
 .db-table td{padding:10px 10px;border-bottom:1px solid var(--border);vertical-align:top;color:var(--text);}
 .db-table tr:last-child td{border-bottom:none;}
 .db-table tr:hover td{background:var(--bg2);}
 .db-table .day-col{width:52px;font-weight:500;color:var(--text2);white-space:nowrap;}
-.db-table .name-col{font-weight:500;}
-.db-table .desc-col{color:var(--text2);font-size:12px;line-height:1.6;}
+.db-table .name-col{width:160px;font-weight:500;}
 
-/* TAGS / PROPERTIES */
+/* TAGS */
 .tag{display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:500;padding:2px 8px;border-radius:3px;white-space:nowrap;}
 .tag-breath{background:var(--green-bg);color:var(--green);}
 .tag-cardio{background:var(--blue-bg);color:var(--blue);}
 .tag-dupla{background:var(--orange-bg);color:var(--orange);}
+.tag-mob{background:var(--purple-bg);color:var(--purple);}
 .tag-rest{background:var(--bg2);color:var(--text2);}
 
-/* INLINE TEXT LABELS */
 .label-green{font-size:11px;font-weight:600;color:var(--green);text-transform:uppercase;letter-spacing:.05em;display:block;margin-bottom:2px;margin-top:6px;}
 .label-blue{font-size:11px;font-weight:600;color:var(--blue);text-transform:uppercase;letter-spacing:.05em;display:block;margin-bottom:2px;margin-top:6px;}
+.label-purple{font-size:11px;font-weight:600;color:var(--purple);text-transform:uppercase;letter-spacing:.05em;display:block;margin-bottom:2px;margin-top:6px;}
 
 /* GOALS */
 .property-list{margin-bottom:1.5rem;}
-.property-row{display:flex;align-items:baseline;gap:0;padding:6px 0;border-bottom:1px solid var(--border);font-size:13px;}
+.property-row{display:flex;align-items:baseline;padding:6px 0;border-bottom:1px solid var(--border);font-size:13px;}
 .property-row:last-child{border-bottom:none;}
-.prop-key{min-width:200px;color:var(--text2);font-size:13px;}
+.prop-key{min-width:200px;color:var(--text2);}
 .prop-now{color:var(--text3);min-width:80px;}
 .prop-arrow{color:var(--text3);margin:0 8px;}
 .prop-target{color:var(--green);font-weight:500;}
+
+/* MOBILITY ACCORDION */
+.mob-section{margin-bottom:1rem;}
+.mob-toggle{width:100%;text-align:left;background:none;border:none;border-bottom:1px solid var(--border);padding:8px 0;font-family:var(--sans);font-size:13px;font-weight:500;color:var(--text);cursor:pointer;display:flex;justify-content:space-between;align-items:center;}
+.mob-toggle:hover{color:var(--purple);}
+.mob-toggle .arrow{font-size:10px;color:var(--text3);transition:transform .2s;}
+.mob-toggle.open .arrow{transform:rotate(90deg);}
+.mob-body{display:none;padding:.75rem 0;font-size:13px;color:var(--text2);line-height:1.7;}
+.mob-body.visible{display:block;}
+.mob-item{display:flex;gap:10px;padding:5px 0;border-bottom:1px solid var(--border);}
+.mob-item:last-child{border-bottom:none;}
+.mob-num{font-size:11px;font-weight:600;color:var(--text3);min-width:20px;padding-top:1px;}
+.mob-name{font-weight:500;color:var(--text);font-size:13px;}
+.mob-desc{font-size:12px;color:var(--text2);}
 
 footer{font-size:11px;color:var(--text3);text-align:center;margin-top:3rem;}
 </style>
@@ -139,18 +156,36 @@ footer{font-size:11px;color:var(--text3);text-align:center;margin-top:3rem;}
 <body>
 <div class="page">
 
-  <div class="page-icon">🌊</div>
+  <div class="page-icon">
+    <svg width="48" height="48" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+      <ellipse cx="24" cy="24" rx="7" ry="19" fill="#37352f" transform="rotate(-25 24 24)"/>
+      <ellipse cx="24" cy="24" rx="3" ry="7" fill="#f7f7f5" transform="rotate(-25 24 24)"/>
+      <path d="M16 36 L12 42" stroke="#37352f" stroke-width="2.5" stroke-linecap="round"/>
+    </svg>
+  </div>
   <div class="page-title">Surf Breath Training</div>
-  <div class="page-sub">Programa de 8 semanas · Apneia + Cardio · 3 dias/semana</div>
+  <div class="page-sub">Programa de 8 semanas · Apneia + Cardio + Mobilidade · 3 dias/semana</div>
 
   <div class="nav">
     <button class="nav-btn active" data-screen="timer">Cronômetro</button>
     <button class="nav-btn" data-screen="program">Programa</button>
+    <button class="nav-btn" data-screen="mobility">Mobilidade</button>
     <button class="nav-btn" data-screen="goals">Metas</button>
   </div>
 
   <!-- ====== TIMER ====== -->
   <div class="screen visible" id="screen-timer">
+
+    <div class="intensity-wrap">
+      <span class="intensity-label">Intensidade</span>
+      <div class="intensity-btns">
+        <button class="int-btn" data-int="easy">Fácil</button>
+        <button class="int-btn active" data-int="medium">Médio</button>
+        <button class="int-btn" data-int="hard">Difícil</button>
+        <button class="int-btn" data-int="legend">Surf Legend</button>
+      </div>
+      <div class="int-desc" id="int-desc">Médio — CO2 em 70% do máximo, O2 sobe 15seg/série, recuperação padrão. Base do programa.</div>
+    </div>
 
     <div class="section-label">Protocolo</div>
     <div class="proto-tabs" id="proto-tabs">
@@ -170,6 +205,11 @@ footer{font-size:11px;color:var(--text3);text-align:center;margin-top:3rem;}
       <label>Seu máximo (seg)</label>
       <input type="number" id="max-input" value="90" min="10" max="400"/>
       <button class="ctrl-btn" id="apply-max">Aplicar</button>
+    </div>
+
+    <div class="callout yellow" id="intensity-hint" style="margin-bottom:1rem;display:none;">
+      <div class="callout-icon" style="font-size:13px;font-weight:600;color:var(--yellow);">CFG</div>
+      <div id="intensity-hint-text"></div>
     </div>
 
     <div class="circle-wrap">
@@ -199,18 +239,17 @@ footer{font-size:11px;color:var(--text3);text-align:center;margin-top:3rem;}
       <div class="scard"><div class="sval" id="s-best">—</div><div class="slbl">Melhor apneia</div></div>
     </div>
 
-    <div class="callout">
-      <div class="callout-icon">💡</div>
+    <div class="callout red">
+      <div class="callout-icon" style="font-size:11px;font-weight:700;color:var(--red);letter-spacing:.02em;">AVISO</div>
       <div>Sempre em seco. Nunca pratique apneia sozinho na água — shallow water blackout ocorre sem aviso.</div>
     </div>
   </div>
 
   <!-- ====== PROGRAM ====== -->
   <div class="screen" id="screen-program">
-
     <div class="callout blue">
-      <div class="callout-icon">ℹ️</div>
-      <div><strong>Estrutura:</strong> 3 dias/semana, cada sessão é dupla — breath primeiro, cardio depois. Nunca inverta a ordem.</div>
+      <div class="callout-icon" style="font-size:13px;font-weight:700;color:var(--blue);">i</div>
+      <div><strong>Estrutura:</strong> 3 dias/semana. Cada sessão é tripla — mobilidade primeiro, breath segundo, cardio por último. Nunca inverta.</div>
     </div>
 
     <div class="section-label">Fase</div>
@@ -224,16 +263,18 @@ footer{font-size:11px;color:var(--text3);text-align:center;margin-top:3rem;}
     <!-- FASE 1 -->
     <div class="phase-content visible" id="phase-0">
       <div class="callout green" style="margin-bottom:1rem;">
-        <div class="callout-icon">🎯</div>
-        <div><strong>Objetivo:</strong> Descobrir o máximo real. CO2 table em 70% desde o início — sem suavidade. Cardio: 8min correndo / 2min andando, 30min total.</div>
+        <div class="callout-icon" style="font-size:11px;font-weight:700;color:var(--green);">OBJ</div>
+        <div><strong>Objetivo:</strong> Calibração e choque inicial. CO2 table em 70% desde o início. Cardio: 8min / 2min até 30min. Mobilidade leve pré-sessão.</div>
       </div>
       <table class="db-table">
         <thead><tr><th>Dia</th><th>Sessão</th><th>Descrição</th></tr></thead>
         <tbody>
           <tr>
             <td class="day-col">A</td>
-            <td class="name-col"><span class="tag tag-dupla">dupla</span><br>CO2 table + intervalado</td>
+            <td class="name-col"><span class="tag tag-dupla">tripla</span><br>Mob + CO2 + intervalado</td>
             <td class="desc-col">
+              <span class="label-purple">Mobilidade — 10min</span>
+              Rotação torácica (1min cada lado) → abertura de quadril (1min cada) → mobilização de ombros (2min) → respiração diafragmática deitado (3min). Ver aba Mobilidade.
               <span class="label-green">Breath — 25min</span>
               Teste máximo: 3 séries apneia livre, anota o melhor. CO2 table: 6 séries com 70% do máximo, recuperação 2min entre cada.
               <span class="label-blue">Cardio — 30min</span>
@@ -242,18 +283,22 @@ footer{font-size:11px;color:var(--text3);text-align:center;margin-top:3rem;}
           </tr>
           <tr>
             <td class="day-col">B</td>
-            <td class="name-col"><span class="tag tag-dupla">dupla</span><br>O2 table + zona 2</td>
+            <td class="name-col"><span class="tag tag-dupla">tripla</span><br>Mob + O2 table + zona 2</td>
             <td class="desc-col">
+              <span class="label-purple">Mobilidade — 10min</span>
+              Mobilização de coluna (gato-vaca 2min) → alongamento de psoas (1min cada) → abertura de peito (2min) → respiração 4-4-4 deitado (3min).
               <span class="label-green">Breath — 25min</span>
               O2 table: 6 séries, recuperação fixa 2min, apneia começa em 50% do máximo e sobe 10seg por série.
               <span class="label-blue">Cardio — 30min</span>
-              Mesma estrutura: 8min correndo / 2min andando. Foco em ritmo constante, não velocidade.
+              8min correndo / 2min andando. Foco em ritmo constante, não velocidade.
             </td>
           </tr>
           <tr>
             <td class="day-col">C</td>
-            <td class="name-col"><span class="tag tag-dupla">dupla</span><br>Wim Hof + corrida contínua</td>
+            <td class="name-col"><span class="tag tag-dupla">tripla</span><br>Mob + Wim Hof + corrida</td>
             <td class="desc-col">
+              <span class="label-purple">Mobilidade — 10min</span>
+              Alongamento completo de cadeia posterior (2min) → rotação de quadril deitado (1min cada) → expansão de caixa torácica (3min) → relaxamento progressivo (2min).
               <span class="label-green">Breath — 20min</span>
               3 rounds Wim Hof: 30 respirações profundas + apneia livre. Sentado, nunca em pé. 2min entre rounds.
               <span class="label-blue">Cardio — 25min</span>
@@ -263,7 +308,7 @@ footer{font-size:11px;color:var(--text3);text-align:center;margin-top:3rem;}
           <tr>
             <td class="day-col">resto</td>
             <td class="name-col"><span class="tag tag-rest">descanso</span></td>
-            <td class="desc-col">4 dias livres. Caminhada leve liberada. O treino acontece na recuperação.</td>
+            <td class="desc-col">4 dias livres. Caminhada leve liberada. Mobilidade passiva (rolinho ou alongamento suave) é bem-vinda.</td>
           </tr>
         </tbody>
       </table>
@@ -272,38 +317,44 @@ footer{font-size:11px;color:var(--text3);text-align:center;margin-top:3rem;}
     <!-- FASE 2 -->
     <div class="phase-content" id="phase-1">
       <div class="callout orange" style="margin-bottom:1rem;">
-        <div class="callout-icon">🔥</div>
-        <div><strong>Objetivo:</strong> CO2 table mais pesada toda semana — recuperação cai 15seg por série. Cardio evolui pra 12-15min contínuos. Aqui vai doer.</div>
+        <div class="callout-icon" style="font-size:11px;font-weight:700;color:var(--orange);">OBJ</div>
+        <div><strong>Objetivo:</strong> Saturação de CO2. Recuperação cai 15seg por série. Cardio evolui pra 12-15min contínuos. Mobilidade pré e pós-sessão.</div>
       </div>
       <table class="db-table">
         <thead><tr><th>Dia</th><th>Sessão</th><th>Descrição</th></tr></thead>
         <tbody>
           <tr>
             <td class="day-col">A</td>
-            <td class="name-col"><span class="tag tag-dupla">dupla</span><br>CO2 pesada + intervalado intenso</td>
+            <td class="name-col"><span class="tag tag-dupla">tripla</span><br>Mob + CO2 pesada + intervalado</td>
             <td class="desc-col">
+              <span class="label-purple">Mobilidade — 12min</span>
+              Rotação torácica dinâmica (2min) → hip flexor stretch (2min cada) → abertura de ombros na parede (2min) → respiração diafragmática profunda (4min). Foco: maximizar expansão da caixa torácica.
               <span class="label-green">Breath — 30min</span>
-              CO2 table: 8 séries com 70% do máximo. Recuperação começa em 2min e cai 15seg a cada série (2:00, 1:45, 1:30...). A vontade de respirar no fim é o treino.
+              CO2 table: 8 séries com 70% do máximo. Recuperação começa em 2min e cai 15seg a cada série. A vontade de respirar no fim é o treino.
               <span class="label-blue">Cardio — 35min</span>
-              5x(3min forte / 90seg andando). Forte = consegue falar só palavras soltas. Aquecimento 5min antes.
+              5x(3min forte / 90seg andando). Aquecimento 5min antes.
             </td>
           </tr>
           <tr>
             <td class="day-col">B</td>
-            <td class="name-col"><span class="tag tag-dupla">dupla</span><br>O2 table progressiva + zona 2</td>
+            <td class="name-col"><span class="tag tag-dupla">tripla</span><br>Mob + O2 progressiva + zona 2</td>
             <td class="desc-col">
+              <span class="label-purple">Mobilidade — 12min</span>
+              Mobilização de coluna completa (3min) → pigeon pose (2min cada) → abertura de peito com rolo (3min) → respiração 4-6-8 (2min).
               <span class="label-green">Breath — 30min</span>
-              O2 table: 8 séries, recuperação fixa 90seg, apneia começa em 55% do máximo e sobe 15seg por série.
+              O2 table: 8 séries, recuperação fixa 90seg, apneia começa em 55% e sobe 15seg por série.
               <span class="label-blue">Cardio — 35min</span>
               12min correndo / 2min andando / 12min correndo. Diminui ritmo se precisar, mas não para.
             </td>
           </tr>
           <tr>
             <td class="day-col">C</td>
-            <td class="name-col"><span class="tag tag-dupla">dupla</span><br>CO2 + Wim Hof + corrida longa</td>
+            <td class="name-col"><span class="tag tag-dupla">tripla</span><br>Mob + CO2 + Wim Hof + corrida</td>
             <td class="desc-col">
+              <span class="label-purple">Mobilidade — 10min</span>
+              Alongamento dinâmico completo (5min) + respiração de ativação (5min). Mais rápido — é dia de volume alto.
               <span class="label-green">Breath — 30min</span>
-              4 séries CO2 table (70%, rec 90seg). 2 rounds Wim Hof. Teste parcial: 1 apneia livre no final pra medir evolução.
+              4 séries CO2 table (70%, rec 90seg). 2 rounds Wim Hof. Teste parcial: 1 apneia livre pra medir evolução.
               <span class="label-blue">Cardio — 35min</span>
               15min contínuos → 2min andando → 10min contínuos. Objetivo: 20min sem parar até fim da sem. 4.
             </td>
@@ -315,40 +366,46 @@ footer{font-size:11px;color:var(--text3);text-align:center;margin-top:3rem;}
     <!-- FASE 3 -->
     <div class="phase-content" id="phase-2">
       <div class="callout green" style="margin-bottom:1rem;">
-        <div class="callout-icon">📈</div>
-        <div><strong>Objetivo:</strong> O2 table vira foco principal. Apneia sobe 15seg por série. Cardio chega em 20-25min contínuos. Sua apneia máxima deve estar 40-60% acima do início.</div>
+        <div class="callout-icon" style="font-size:11px;font-weight:700;color:var(--green);">OBJ</div>
+        <div><strong>Objetivo:</strong> O2 table vira foco. Apneia sobe 15seg por série. Cardio 20-25min contínuos. Mobilidade pós-cardio também.</div>
       </div>
       <table class="db-table">
         <thead><tr><th>Dia</th><th>Sessão</th><th>Descrição</th></tr></thead>
         <tbody>
           <tr>
             <td class="day-col">A</td>
-            <td class="name-col"><span class="tag tag-dupla">dupla</span><br>O2 table pesada + intervalado VO2</td>
+            <td class="name-col"><span class="tag tag-dupla">tripla</span><br>Mob + O2 pesada + intervalado VO2</td>
             <td class="desc-col">
+              <span class="label-purple">Mobilidade — 12min</span>
+              Rotação torácica com bastão (3min) → abertura de quadril profunda (3min) → expansão costal lateral (3min) → breathing squat (3min): agacha enquanto expira, sobe enquanto inspira.
               <span class="label-green">Breath — 35min</span>
-              O2 table: 8 séries, recuperação fixa 90seg, apneia começa em 60% do máximo e sobe 15seg por série. Se travar numa série, mantém o tempo e segue.
+              O2 table: 8 séries, recuperação fixa 90seg, apneia começa em 60% e sobe 15seg por série.
               <span class="label-blue">Cardio — 40min</span>
-              8x(2min no limite / 2min leve). Aquecimento 5min. Treino que mais eleva VO2 max — não economiza.
+              8x(2min no limite / 2min leve). Aquecimento 5min. Não economiza.
             </td>
           </tr>
           <tr>
             <td class="day-col">B</td>
-            <td class="name-col"><span class="tag tag-dupla">dupla</span><br>CO2 manutenção + zona 2 longo</td>
+            <td class="name-col"><span class="tag tag-dupla">tripla</span><br>Mob + CO2 manutenção + zona 2</td>
             <td class="desc-col">
+              <span class="label-purple">Mobilidade — 12min</span>
+              Yin yoga surf: postura da borboleta (3min) → postura do dragão (2min cada perna) → torção supina (2min cada). Foco em soltura profunda.
               <span class="label-green">Breath — 25min</span>
-              CO2 table manutenção: 6 séries com 75% do máximo, recuperação 1:30 fixo. Mantém a tolerância enquanto o foco é O2.
+              CO2 table manutenção: 6 séries com 75% do máximo, recuperação 1:30 fixo.
               <span class="label-blue">Cardio — 45min</span>
-              20min contínuos / 3min andando / 10min contínuos. Base longa sustenta o volume de apneia.
+              20min contínuos / 3min andando / 10min contínuos.
             </td>
           </tr>
           <tr>
             <td class="day-col">C</td>
-            <td class="name-col"><span class="tag tag-dupla">dupla</span><br>O2 + CO2 combinados + corrida</td>
+            <td class="name-col"><span class="tag tag-dupla">tripla</span><br>Mob + O2+CO2 combinados + corrida</td>
             <td class="desc-col">
+              <span class="label-purple">Mobilidade — 10min</span>
+              Ativação rápida: mobilização de coluna + abertura de peito + respiração de preparação.
               <span class="label-green">Breath — 35min</span>
-              4 séries O2 (rec 90seg, 60% + 15seg). Descansa 3min. 4 séries CO2 (rec 1:15, 75%). Teste parcial no final.
+              4 séries O2 (rec 90seg, 60%+15seg). 3min descanso. 4 séries CO2 (rec 1:15, 75%). Teste parcial no final.
               <span class="label-blue">Cardio — 40min</span>
-              25min contínuos. Sem negociar. Encerra com 5min de caminhada.
+              25min contínuos. Encerra com 5min de caminhada.
             </td>
           </tr>
         </tbody>
@@ -357,112 +414,215 @@ footer{font-size:11px;color:var(--text3);text-align:center;margin-top:3rem;}
 
     <!-- FASE 4 -->
     <div class="phase-content" id="phase-3">
-      <div class="callout" style="margin-bottom:1rem;background:#f3f0ff;">
-        <div class="callout-icon">🏆</div>
-        <div><strong>Objetivo:</strong> Tables combinadas por sessão. Cardio chega em 30min contínuos + intervalado pesado. Teste de máximo toda semana. Ao fim: vai pro mar.</div>
+      <div class="callout purple" style="margin-bottom:1rem;">
+        <div class="callout-icon" style="font-size:11px;font-weight:700;color:var(--purple);">OBJ</div>
+        <div><strong>Objetivo:</strong> Tables combinadas. Cardio 30min contínuos + intervalado pesado. Mobilidade completa. Teste de máximo toda semana.</div>
       </div>
       <table class="db-table">
         <thead><tr><th>Dia</th><th>Sessão</th><th>Descrição</th></tr></thead>
         <tbody>
           <tr>
             <td class="day-col">A</td>
-            <td class="name-col"><span class="tag tag-dupla">dupla</span><br>Tables combinadas + intervalado máximo</td>
+            <td class="name-col"><span class="tag tag-dupla">tripla</span><br>Mob + Tables combinadas + intervalado</td>
             <td class="desc-col">
+              <span class="label-purple">Mobilidade — 15min</span>
+              Rotação torácica (3min) → abertura de quadril profunda (4min) → expansão costal + intercostal (4min) → respiração de ativação final (4min).
               <span class="label-green">Breath — 40min</span>
-              CO2: 8 séries 75%, rec começa em 1:30 e cai 10seg por série. Descansa 4min. O2: 4 séries 65% + 15seg cada, rec 90seg. Teste máximo no final — anota.
+              CO2: 8 séries 75%, rec começa 1:30 e cai 10seg. Descansa 4min. O2: 4 séries 65%+15seg, rec 90seg. Teste máximo no final.
               <span class="label-blue">Cardio — 40min</span>
               10x(90seg máximo / 90seg leve). Aquecimento 5min. O mais intenso do programa.
             </td>
           </tr>
           <tr>
             <td class="day-col">B</td>
-            <td class="name-col"><span class="tag tag-dupla">dupla</span><br>O2 table máxima + corrida longa</td>
+            <td class="name-col"><span class="tag tag-dupla">tripla</span><br>Mob + O2 máxima + corrida longa</td>
             <td class="desc-col">
+              <span class="label-purple">Mobilidade — 15min</span>
+              Yin surf completo: borboleta (3min) → dragão (3min cada) → torção profunda (2min cada) → savasana com respiração (2min).
               <span class="label-green">Breath — 35min</span>
-              O2 table: 8 séries, recuperação fixa 75seg, apneia começa em 65% e sobe 15seg por série. Últimas séries chegam perto do máximo.
+              O2 table: 8 séries, recuperação fixa 75seg, apneia começa em 65% e sobe 15seg. Últimas séries chegam perto do máximo.
               <span class="label-blue">Cardio — 50min</span>
-              30min correndo contínuo. Sem parada. Ritmo pode cair, mas não para. Encerra com 10min leve.
+              30min correndo contínuo. Ritmo pode cair, mas não para. Encerra 10min leve.
             </td>
           </tr>
           <tr>
             <td class="day-col">C</td>
-            <td class="name-col"><span class="tag tag-dupla">dupla</span><br>Sessão final + teste definitivo</td>
+            <td class="name-col"><span class="tag tag-dupla">tripla</span><br>Sessão final + teste definitivo</td>
             <td class="desc-col">
+              <span class="label-purple">Mobilidade — 15min</span>
+              Mobilidade completa de abertura: torácica + quadril + ombros + respiração. Faz com calma — é a última sessão.
               <span class="label-green">Breath — 40min</span>
-              3 rounds Wim Hof + apneia máxima. 5min descanso. CO2: 6 séries 75%, rec 1min fixo. Teste final: 3 tentativas, anota o melhor. Compara com semana 1.
+              3 rounds Wim Hof + apneia máxima. 5min descanso. CO2: 6 séries 75%, rec 1min. Teste final: 3 tentativas, anota o melhor.
               <span class="label-blue">Cardio — 40min</span>
-              30min correndo. Ritmo livre. Você terminou o programa.
+              30min correndo. Ritmo livre. Vai pro mar depois.
             </td>
           </tr>
         </tbody>
       </table>
       <div class="callout red">
-        <div class="callout-icon">⚠️</div>
-        <div><strong>Segurança permanente:</strong> Todo treino de apneia em seco. Nunca pratique apneia sozinho na água. Shallow water blackout ocorre sem aviso prévio.</div>
+        <div class="callout-icon" style="font-size:11px;font-weight:700;color:var(--red);letter-spacing:.02em;">AVISO</div>
+        <div><strong>Segurança permanente:</strong> Todo treino de apneia em seco. Nunca pratique apneia sozinho na água.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ====== MOBILITY ====== -->
+  <div class="screen" id="screen-mobility">
+    <div class="callout purple">
+      <div class="callout-icon" style="font-size:11px;font-weight:700;color:var(--purple);">MOB</div>
+      <div><strong>Por que mobilidade antes do breath training:</strong> Mobilidade torácica e de quadril aumenta a capacidade de expansão pulmonar em até 15%. Cada sessão começa com mobilidade — não pula.</div>
+    </div>
+
+    <div class="section-label">Mobilidade torácica — expansão pulmonar</div>
+
+    <div class="mob-section">
+      <button class="mob-toggle" onclick="toggleMob(this)">
+        Rotação torácica dinâmica <span class="arrow">▶</span>
+      </button>
+      <div class="mob-body">
+        <div class="mob-item"><div class="mob-num">1.</div><div><div class="mob-name">Posição</div><div class="mob-desc">De joelhos, coloca uma mão atrás da cabeça. Cotovelo aponta pra frente.</div></div></div>
+        <div class="mob-item"><div class="mob-num">2.</div><div><div class="mob-name">Movimento</div><div class="mob-desc">Abre o cotovelo pro teto, segura 2seg. Fecha voltando pra frente. 10 reps cada lado.</div></div></div>
+        <div class="mob-item"><div class="mob-num">3.</div><div><div class="mob-name">Respiração</div><div class="mob-desc">Inspira ao abrir, expira ao fechar. Não força — a mobilidade vai aumentando naturalmente.</div></div></div>
+        <div class="mob-item"><div class="mob-num">⏱</div><div><div class="mob-name">Tempo</div><div class="mob-desc">2min por lado. Total: 4min.</div></div></div>
+      </div>
+    </div>
+
+    <div class="mob-section">
+      <button class="mob-toggle" onclick="toggleMob(this)">
+        Abertura de peito com rolo <span class="arrow">▶</span>
+      </button>
+      <div class="mob-body">
+        <div class="mob-item"><div class="mob-num">1.</div><div><div class="mob-name">Posição</div><div class="mob-desc">Rolo de espuma horizontal nas costas, na altura da escápula. Joelhos dobrados, pés no chão.</div></div></div>
+        <div class="mob-item"><div class="mob-num">2.</div><div><div class="mob-name">Movimento</div><div class="mob-desc">Deixa o peito abrir com gravidade por 30seg. Move o rolo 2cm pra cima, repete. Cobre toda a região torácica.</div></div></div>
+        <div class="mob-item"><div class="mob-num">3.</div><div><div class="mob-name">Variação sem rolo</div><div class="mob-desc">Deita na borda de uma cadeira com os braços abertos. Mesmo efeito.</div></div></div>
+        <div class="mob-item"><div class="mob-num">⏱</div><div><div class="mob-name">Tempo</div><div class="mob-desc">3min total.</div></div></div>
+      </div>
+    </div>
+
+    <div class="mob-section">
+      <button class="mob-toggle" onclick="toggleMob(this)">
+        Expansão costal lateral <span class="arrow">▶</span>
+      </button>
+      <div class="mob-body">
+        <div class="mob-item"><div class="mob-num">1.</div><div><div class="mob-name">Posição</div><div class="mob-desc">Sentado ou em pé. Braço esquerdo esticado acima da cabeça, inclina levemente pro lado direito.</div></div></div>
+        <div class="mob-item"><div class="mob-num">2.</div><div><div class="mob-name">Respiração</div><div class="mob-desc">Inspira tentando expandir o lado esquerdo das costelas lateralmente. Segura 3seg. Expira devagar. 8 respirações cada lado.</div></div></div>
+        <div class="mob-item"><div class="mob-num">⏱</div><div><div class="mob-name">Tempo</div><div class="mob-desc">3min total. Aumenta diretamente a capacidade inspiratória.</div></div></div>
+      </div>
+    </div>
+
+    <div class="section-label">Mobilidade de quadril — postura no surfe</div>
+
+    <div class="mob-section">
+      <button class="mob-toggle" onclick="toggleMob(this)">
+        Hip flexor stretch (psoas) <span class="arrow">▶</span>
+      </button>
+      <div class="mob-body">
+        <div class="mob-item"><div class="mob-num">1.</div><div><div class="mob-name">Posição</div><div class="mob-desc">Ajoelha com o joelho esquerdo no chão, pé direito à frente (posição de cavaleiro).</div></div></div>
+        <div class="mob-item"><div class="mob-num">2.</div><div><div class="mob-name">Movimento</div><div class="mob-desc">Avança o quadril pra frente suavemente até sentir o alongamento na virilha esquerda. Mantém 90seg. Não arqueia a lombar.</div></div></div>
+        <div class="mob-item"><div class="mob-num">3.</div><div><div class="mob-name">Por que importa pro surfe</div><div class="mob-desc">Psoas tenso tranca a respiração diafragmática e limita o pop up. Soltar esse músculo muda a postura na prancha.</div></div></div>
+        <div class="mob-item"><div class="mob-num">⏱</div><div><div class="mob-name">Tempo</div><div class="mob-desc">90seg cada lado. Total: 3min.</div></div></div>
+      </div>
+    </div>
+
+    <div class="mob-section">
+      <button class="mob-toggle" onclick="toggleMob(this)">
+        Pigeon pose (glúteo / rotação externa) <span class="arrow">▶</span>
+      </button>
+      <div class="mob-body">
+        <div class="mob-item"><div class="mob-num">1.</div><div><div class="mob-name">Posição</div><div class="mob-desc">Do quadrupedal, traz o joelho direito pra frente e coloca o pé apontando pro lado esquerdo. Perna esquerda fica estendida pra trás.</div></div></div>
+        <div class="mob-item"><div class="mob-num">2.</div><div><div class="mob-name">Movimento</div><div class="mob-desc">Desce o tronco pra frente sobre o joelho dobrado. Mantém 2min. Respira profundamente — a expiração aprofunda o alongamento.</div></div></div>
+        <div class="mob-item"><div class="mob-num">⏱</div><div><div class="mob-name">Tempo</div><div class="mob-desc">2min cada lado. Total: 4min.</div></div></div>
+      </div>
+    </div>
+
+    <div class="section-label">Respiração diafragmática — ativação pré-treino</div>
+
+    <div class="mob-section">
+      <button class="mob-toggle" onclick="toggleMob(this)">
+        Respiração diafragmática deitado <span class="arrow">▶</span>
+      </button>
+      <div class="mob-body">
+        <div class="mob-item"><div class="mob-num">1.</div><div><div class="mob-name">Posição</div><div class="mob-desc">Deitado de costas, joelhos dobrados. Uma mão no peito, outra na barriga.</div></div></div>
+        <div class="mob-item"><div class="mob-num">2.</div><div><div class="mob-name">Técnica</div><div class="mob-desc">Inspira em 4seg fazendo a barriga subir — a mão do peito não deve se mover. Expira em 6seg contraindo o abdômen.</div></div></div>
+        <div class="mob-item"><div class="mob-num">3.</div><div><div class="mob-name">Por que importa</div><div class="mob-desc">Ativa o diafragma completamente antes das tables. Aumenta o volume de O2 em cada respiração.</div></div></div>
+        <div class="mob-item"><div class="mob-num">⏱</div><div><div class="mob-name">Tempo</div><div class="mob-desc">3-5min. Faz no final de cada bloco de mobilidade como transição pro breath training.</div></div></div>
+      </div>
+    </div>
+
+    <div class="mob-section">
+      <button class="mob-toggle" onclick="toggleMob(this)">
+        Breathing squat (mobilidade + respiração) <span class="arrow">▶</span>
+      </button>
+      <div class="mob-body">
+        <div class="mob-item"><div class="mob-num">1.</div><div><div class="mob-name">Posição</div><div class="mob-desc">Em pé, pés na largura dos ombros, levemente virados pra fora.</div></div></div>
+        <div class="mob-item"><div class="mob-num">2.</div><div><div class="mob-name">Movimento</div><div class="mob-desc">Expira completamente ao agachar. Inspira profundamente ao subir, expandindo a caixa torácica no topo. 10 reps lentas.</div></div></div>
+        <div class="mob-item"><div class="mob-num">3.</div><div><div class="mob-name">Benefício</div><div class="mob-desc">Une mobilidade de quadril com capacidade respiratória. Simula o padrão de movimento do surfe.</div></div></div>
+        <div class="mob-item"><div class="mob-num">⏱</div><div><div class="mob-name">Tempo</div><div class="mob-desc">3min. Usado nas fases 3 e 4 do programa.</div></div></div>
+      </div>
+    </div>
+
+    <div class="section-label">Yin yoga surf — recuperação pós-sessão</div>
+
+    <div class="mob-section">
+      <button class="mob-toggle" onclick="toggleMob(this)">
+        Postura da borboleta <span class="arrow">▶</span>
+      </button>
+      <div class="mob-body">
+        <div class="mob-item"><div class="mob-num">1.</div><div><div class="mob-name">Posição</div><div class="mob-desc">Sentado, junta as solas dos pés. Joelhos apontam pra fora. Deixa a gravidade abrir o quadril.</div></div></div>
+        <div class="mob-item"><div class="mob-num">2.</div><div><div class="mob-name">Variação</div><div class="mob-desc">Inclina o tronco pra frente com a coluna arredondada pra também alongar a lombar.</div></div></div>
+        <div class="mob-item"><div class="mob-num">⏱</div><div><div class="mob-name">Tempo</div><div class="mob-desc">3min. Yin — não força. Deixa o corpo ceder com o tempo.</div></div></div>
+      </div>
+    </div>
+
+    <div class="mob-section">
+      <button class="mob-toggle" onclick="toggleMob(this)">
+        Postura do dragão (quadril + psoas profundo) <span class="arrow">▶</span>
+      </button>
+      <div class="mob-body">
+        <div class="mob-item"><div class="mob-num">1.</div><div><div class="mob-name">Posição</div><div class="mob-desc">Posição de cavaleiro baixa: joelho de trás no chão, pé da frente bem à frente do joelho.</div></div></div>
+        <div class="mob-item"><div class="mob-num">2.</div><div><div class="mob-name">Profundidade</div><div class="mob-desc">Deixa o quadril descer com gravidade por 3min. É desconfortável — é esse o ponto. Respira profundamente.</div></div></div>
+        <div class="mob-item"><div class="mob-num">⏱</div><div><div class="mob-name">Tempo</div><div class="mob-desc">3min cada lado. Total: 6min. A postura mais importante do programa pra surfe.</div></div></div>
       </div>
     </div>
   </div>
 
   <!-- ====== GOALS ====== -->
   <div class="screen" id="screen-goals">
-
     <div class="section-label">Metas do programa — 8 semanas</div>
     <div class="property-list">
-      <div class="property-row">
-        <span class="prop-key">Apneia máxima</span>
-        <span class="prop-now">1–2 min</span>
-        <span class="prop-arrow">→</span>
-        <span class="prop-target">3–4 min</span>
-      </div>
-      <div class="property-row">
-        <span class="prop-key">Corrida contínua</span>
-        <span class="prop-now">8 min</span>
-        <span class="prop-arrow">→</span>
-        <span class="prop-target">30 min</span>
-      </div>
-      <div class="property-row">
-        <span class="prop-key">Recuperação entre ondas</span>
-        <span class="prop-now">lenta</span>
-        <span class="prop-arrow">→</span>
-        <span class="prop-target">50% mais rápida</span>
-      </div>
-      <div class="property-row">
-        <span class="prop-key">Tolerância CO2 (pânico)</span>
-        <span class="prop-now">presente</span>
-        <span class="prop-arrow">→</span>
-        <span class="prop-target">controlado</span>
-      </div>
-      <div class="property-row">
-        <span class="prop-key">VO2 max estimado</span>
-        <span class="prop-now">base</span>
-        <span class="prop-arrow">→</span>
-        <span class="prop-target">+20%</span>
-      </div>
+      <div class="property-row"><span class="prop-key">Apneia máxima</span><span class="prop-now">1–2 min</span><span class="prop-arrow">→</span><span class="prop-target">3–4 min</span></div>
+      <div class="property-row"><span class="prop-key">Corrida contínua</span><span class="prop-now">8 min</span><span class="prop-arrow">→</span><span class="prop-target">30 min</span></div>
+      <div class="property-row"><span class="prop-key">Recuperação entre ondas</span><span class="prop-now">lenta</span><span class="prop-arrow">→</span><span class="prop-target">50% mais rápida</span></div>
+      <div class="property-row"><span class="prop-key">Tolerância CO2 (pânico)</span><span class="prop-now">presente</span><span class="prop-arrow">→</span><span class="prop-target">controlado</span></div>
+      <div class="property-row"><span class="prop-key">VO2 max estimado</span><span class="prop-now">base</span><span class="prop-arrow">→</span><span class="prop-target">+20%</span></div>
+      <div class="property-row"><span class="prop-key">Mobilidade torácica</span><span class="prop-now">limitada</span><span class="prop-arrow">→</span><span class="prop-target">expansão completa</span></div>
     </div>
 
     <div class="divider"></div>
     <div class="section-label">Como medir a evolução</div>
     <p style="font-size:13px;color:var(--text2);line-height:1.7;margin-bottom:1rem;">
-      Toda semana no Dia C, antes de começar: faz 1 apneia máxima livre no cronômetro. Anota o tempo. A curva de evolução aparece nas semanas 3-4 quando o CO2 tolerance começa a ceder.<br><br>
-      Na corrida: cronometra quanto tempo corre sem parar no início do Dia B. Esse número vai subir toda semana a partir da semana 3.<br><br>
-      No mar: o sinal mais claro é a calma. Hold-down que antes dava pânico vira algo gerenciável.
+      Toda semana no Dia C, antes de começar: 1 apneia máxima livre no cronômetro. Anota. A evolução aparece nas semanas 3-4 quando o CO2 tolerance começa a ceder.<br><br>
+      Na corrida: cronometra o tempo correndo sem parar no Dia B. Sobe toda semana a partir da semana 3.<br><br>
+      Na mobilidade: benchmark simples — quanto do peito toca no chão no pigeon pose. Vai mudando ao longo das semanas.
     </p>
 
     <div class="divider"></div>
-    <div class="section-label">Por que breath antes do cardio</div>
+    <div class="section-label">Ordem das sessões — por que importa</div>
     <p style="font-size:13px;color:var(--text2);line-height:1.7;margin-bottom:1rem;">
-      O treino de apneia exige sistema nervoso fresco e CO2 basal baixo. Se você correr antes, o CO2 já está elevado e a table trava cedo por razão errada. Breath primeiro, sempre.
+      <strong style="color:var(--text);">1. Mobilidade</strong> — abre a caixa torácica, ativa o diafragma, prepara o sistema nervoso.<br>
+      <strong style="color:var(--text);">2. Breath training</strong> — precisa de sistema nervoso fresco e CO2 basal baixo.<br>
+      <strong style="color:var(--text);">3. Cardio</strong> — eleva CO2 e frequência cardíaca. Se vier antes do breath, as tables travam cedo por razão errada.
     </p>
 
     <div class="divider"></div>
     <div class="section-label">Sinais de overtraining</div>
     <p style="font-size:13px;color:var(--text2);line-height:1.7;margin-bottom:1.5rem;">
-      Apneia máxima caindo em vez de subindo, tontura fora dos treinos, irritabilidade, sono ruim. Se aparecer 2 ou mais juntos: reduz o volume pela metade por uma semana antes de retomar.
+      Apneia caindo em vez de subindo, tontura fora dos treinos, irritabilidade, sono ruim. 2 ou mais juntos: reduz volume pela metade por uma semana.
     </p>
 
     <div class="callout red">
-      <div class="callout-icon">⚠️</div>
-      <div><strong>Regra permanente:</strong> Apneia sempre em seco ou com parceiro na água. Shallow water blackout não avisa. Nunca negocia essa regra.</div>
+      <div class="callout-icon" style="font-size:11px;font-weight:700;color:var(--red);letter-spacing:.02em;">AVISO</div>
+      <div><strong>Regra permanente:</strong> Apneia sempre em seco ou com parceiro na água. Shallow water blackout não avisa.</div>
     </div>
   </div>
 
@@ -471,19 +631,67 @@ footer{font-size:11px;color:var(--text3);text-align:center;margin-top:3rem;}
 
 <script>
 const CIRC=2*Math.PI*84;
-let maxHold=90,activePid=0,running=false,freeMode=false;
+let maxHold=90,activePid=0,activeInt='medium',running=false,freeMode=false;
 let timer=null,clockTimer=null,startTime=null;
 let seriesCount=0,bestHold=0,freeStart=null,freeTimer=null,builtPhases=null;
 
+const INTENSITY={
+  easy:{
+    label:'Fácil',
+    desc:'Fácil — CO2 em 55% do máximo, O2 sobe 8seg/série, recuperação generosa. Para quem está começando as tables ou teve semana pesada.',
+    co2pct:.55, o2start:.40, o2step:8, co2rec:150, o2rec:120
+  },
+  medium:{
+    label:'Médio',
+    desc:'Médio — CO2 em 70% do máximo, O2 sobe 15seg/série, recuperação padrão. Base do programa.',
+    co2pct:.70, o2start:.50, o2step:15, co2rec:120, o2rec:90
+  },
+  hard:{
+    label:'Difícil',
+    desc:'Difícil — CO2 em 80% do máximo, O2 sobe 20seg/série, recuperação reduzida. Para quem já domina as tables e quer avançar rápido.',
+    co2pct:.80, o2start:.60, o2step:20, co2rec:90, o2rec:75
+  },
+  legend:{
+    label:'Surf Legend',
+    desc:'Surf Legend — CO2 em 90% do máximo, O2 sobe 25seg/série, recuperação mínima. Nível de freediver. Só use se já completou ao menos 4 semanas do programa.',
+    co2pct:.90, o2start:.70, o2step:25, co2rec:60, o2rec:60
+  }
+};
+
 const PROTOCOLS=[
-  {title:"Teste de apneia máxima",desc:"Descobre seu máximo real em seco. Inspira fundo, clica em iniciar apneia e segura até não aguentar mais. Clica em liberar quando terminar. Esse tempo calibra todas as outras tabelas automaticamente.",free:true,series:3},
-  {title:"CO2 table",desc:"Apneia em 70% do seu máximo, recuperação diminuindo a cada série. Principal treino pra tolerar CO2 alto — o que dispara o pânico no hold-down. Insira seu máximo e aplique antes de iniciar.",free:false,series:8,
-    buildPhases:(mx)=>{let p=[];for(let i=0;i<8;i++){const rec=Math.max(45,120-i*15);p.push({label:'inspira fundo',duration:5},{label:'apneia CO2',duration:Math.round(mx*0.70),isHold:true},{label:'recupera '+rec+'s',duration:rec});}return p;}},
-  {title:"O2 table",desc:"Recuperação fixa, apneia aumentando 15seg por série. Treina o teto de O2. Insira seu máximo e aplique antes de iniciar.",free:false,series:8,
-    buildPhases:(mx)=>{let p=[];for(let i=0;i<8;i++){p.push({label:'inspira fundo',duration:5},{label:'apneia O2',duration:Math.round(mx*0.50)+i*15,isHold:true},{label:'recupera 90s',duration:90});}return p;}},
-  {title:"Recuperação entre ondas",desc:"Expiração longa ativa o parassimpático. Baixa o batimento rápido entre séries. 8 rounds.",free:false,series:8,
-    phases:[{label:'inspira',duration:4},{label:'segura',duration:2},{label:'expira longo',duration:8},{label:'pausa',duration:2}]},
-  {title:"Wim Hof leve",desc:"30 respirações profundas seguidas de apneia livre. 3 rounds. Sempre sentado, nunca perto de água ou em pé.",free:true,series:3}
+  {title:"Teste de apneia máxima",
+   desc:"Descobre seu máximo real em seco. Inspira fundo, clica em iniciar apneia e segura até não aguentar mais. Clica em liberar quando terminar. Esse tempo calibra todas as outras tabelas automaticamente.",
+   free:true,series:3},
+  {title:"CO2 table",
+   desc:"Apneia em % do seu máximo (varia com a intensidade), recuperação diminuindo a cada série. Principal treino pra tolerar CO2 alto — o que dispara o pânico no hold-down.",
+   free:false,series:8,
+   buildPhases:(mx,int)=>{
+     const cfg=INTENSITY[int];
+     let p=[];
+     for(let i=0;i<8;i++){
+       const rec=Math.max(40,cfg.co2rec-i*15);
+       p.push({label:'inspira fundo',duration:5},{label:'apneia CO2',duration:Math.round(mx*cfg.co2pct),isHold:true},{label:'recupera '+rec+'s',duration:rec});
+     }
+     return p;
+   }},
+  {title:"O2 table",
+   desc:"Recuperação fixa, apneia aumentando por série (varia com a intensidade). Treina o teto de O2.",
+   free:false,series:8,
+   buildPhases:(mx,int)=>{
+     const cfg=INTENSITY[int];
+     let p=[];
+     for(let i=0;i<8;i++){
+       p.push({label:'inspira fundo',duration:5},{label:'apneia O2',duration:Math.round(mx*cfg.o2start)+i*cfg.o2step,isHold:true},{label:'recupera '+cfg.o2rec+'s',duration:cfg.o2rec});
+     }
+     return p;
+   }},
+  {title:"Recuperação entre ondas",
+   desc:"Expiração longa ativa o parassimpático. Baixa o batimento rápido entre séries. 8 rounds. Não muda com a intensidade.",
+   free:false,series:8,
+   phases:[{label:'inspira',duration:4},{label:'segura',duration:2},{label:'expira longo',duration:8},{label:'pausa',duration:2}]},
+  {title:"Wim Hof leve",
+   desc:"30 respirações profundas seguidas de apneia livre. 3 rounds. Sempre sentado, nunca perto de água ou em pé.",
+   free:true,series:3}
 ];
 
 const ring=document.getElementById('prog-ring');
@@ -498,11 +706,28 @@ const sTime=document.getElementById('s-time');
 const sBest=document.getElementById('s-best');
 const protoTitle=document.getElementById('proto-title');
 const protoDesc=document.getElementById('proto-desc');
+const intDesc=document.getElementById('int-desc');
+const intensityHint=document.getElementById('intensity-hint');
+const intensityHintText=document.getElementById('intensity-hint-text');
 
 function setRing(p){ring.setAttribute('stroke-dashoffset',(CIRC*(1-Math.min(1,p))).toFixed(1));}
 function fmtTime(s){return Math.floor(s/60)+':'+String(s%60).padStart(2,'0');}
 function stopAll(){running=false;freeMode=false;clearTimeout(timer);clearInterval(clockTimer);clearInterval(freeTimer);setRing(0);}
 function updateClock(){if(startTime)sTime.textContent=fmtTime(Math.floor((Date.now()-startTime)/1000));}
+
+function updateIntensityHint(){
+  const proto=PROTOCOLS[activePid];
+  if(proto.buildPhases&&maxHold>10){
+    const cfg=INTENSITY[activeInt];
+    const co2=Math.round(maxHold*cfg.co2pct);
+    const o2start=Math.round(maxHold*cfg.o2start);
+    if(activePid===1) intensityHintText.textContent='CO2 table: apneia de '+co2+'s por série. Recuperação começa em '+cfg.co2rec+'s e cai 15s a cada série.';
+    if(activePid===2) intensityHintText.textContent='O2 table: apneia começa em '+o2start+'s e sobe '+cfg.o2step+'s por série. Recuperação fixa de '+cfg.o2rec+'s.';
+    intensityHint.style.display='flex';
+  } else {
+    intensityHint.style.display='none';
+  }
+}
 
 function rebuildCtrl(isFree){
   let h='';
@@ -538,10 +763,10 @@ function endFreeApneia(){
   clearInterval(freeTimer);
   const e=Math.floor((Date.now()-freeStart)/1000);
   freeMode=false;
-  if(e>bestHold){bestHold=e;sBest.textContent=e+'s';maxInput.value=e;}
+  if(e>bestHold){bestHold=e;sBest.textContent=e+'s';maxInput.value=e;maxHold=e;updateIntensityHint();}
   seriesCount++;sSeries.textContent=seriesCount;
   phaseLbl.textContent='recupera';
-  countBig.textContent='✓ '+e+'s';
+  countBig.textContent='OK '+e+'s';
   countSub.textContent='série '+seriesCount+'/'+PROTOCOLS[activePid].series;
   setRing(0);
   if(seriesCount>=PROTOCOLS[activePid].series){phaseLbl.textContent='concluído';running=false;rebuildCtrl(true);clearInterval(clockTimer);return;}
@@ -555,7 +780,7 @@ function runStructured(pi,si,second){
   const pps=Math.floor(phases.length/proto.series);
   const gpi=si*pps+pi;
   if(si>=proto.series||gpi>=phases.length){
-    phaseLbl.textContent='concluído';countBig.textContent='✓';setRing(1);
+    phaseLbl.textContent='concluído';countBig.textContent='OK';setRing(1);
     running=false;rebuildCtrl(false);clearInterval(clockTimer);return;
   }
   const phase=phases[gpi];const dur=phase.duration;
@@ -579,11 +804,24 @@ function handleMain(){
   }else{
     if(running){stopAll();rebuildCtrl(false);return;}
     running=true;seriesCount=0;bestHold=0;sBest.textContent='—';sSeries.textContent='0';startTime=Date.now();clockTimer=setInterval(updateClock,1000);
-    builtPhases=proto.buildPhases?proto.buildPhases(maxHold):null;
+    builtPhases=proto.buildPhases?proto.buildPhases(maxHold,activeInt):null;
     rebuildCtrl(false);runStructured(0,0,0);
   }
 }
 
+// INTENSITY BUTTONS
+document.querySelectorAll('.int-btn').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    if(running)stopAll();
+    document.querySelectorAll('.int-btn').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    activeInt=btn.dataset.int;
+    intDesc.textContent=INTENSITY[activeInt].desc;
+    updateIntensityHint();
+  });
+});
+
+// PROTO TABS
 document.querySelectorAll('.proto-btn').forEach(btn=>{
   btn.addEventListener('click',()=>{
     if(running)stopAll();
@@ -598,13 +836,17 @@ document.querySelectorAll('.proto-btn').forEach(btn=>{
     bestHold=0;setRing(0);
     maxRow.style.display=proto.buildPhases?'flex':'none';
     rebuildCtrl(proto.free);
+    updateIntensityHint();
   });
 });
 
 document.getElementById('apply-max').addEventListener('click',()=>{
-  maxHold=Math.max(10,parseInt(maxInput.value)||90);maxInput.value=maxHold;
+  maxHold=Math.max(10,parseInt(maxInput.value)||90);
+  maxInput.value=maxHold;
+  updateIntensityHint();
 });
 
+// NAV
 document.querySelectorAll('.nav-btn').forEach(btn=>{
   btn.addEventListener('click',()=>{
     document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
@@ -614,6 +856,7 @@ document.querySelectorAll('.nav-btn').forEach(btn=>{
   });
 });
 
+// PHASE SELECTOR
 document.querySelectorAll('.phase-btn').forEach(btn=>{
   btn.addEventListener('click',()=>{
     document.querySelectorAll('.phase-btn').forEach(b=>b.classList.remove('active'));
@@ -622,6 +865,14 @@ document.querySelectorAll('.phase-btn').forEach(btn=>{
     document.getElementById('phase-'+btn.dataset.phase).classList.add('visible');
   });
 });
+
+// MOBILITY ACCORDION
+function toggleMob(btn){
+  const body=btn.nextElementSibling;
+  const isOpen=body.classList.contains('visible');
+  body.classList.toggle('visible',!isOpen);
+  btn.classList.toggle('open',!isOpen);
+}
 
 rebuildCtrl(true);
 </script>
